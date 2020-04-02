@@ -113,7 +113,7 @@ public class LSFR {
         return tmp;
     }
     public String cypher(String plainText) throws IOException{
-        String path = "C:\\Users\\Mohamed Ashraf\\Desktop\\LSFR\\data.txt";
+        String path = "F:\\college\\third year\\second term\\Computer Network Security\\assignments\\LSFR_Encrypter\\LSFR\\data.txt";
         ArrayList<String> tmp = new ArrayList<String>();
         ArrayList<String> data = readfile(path);
         String key = generateKey(data.get(0), data.get(1), Integer.parseInt(data.get(2)), (plainText.length())*8);
@@ -130,16 +130,16 @@ public class LSFR {
         String plainBinary = arrayToString(tmp);
         String ciphered = XORing(plainBinary, key);
         
-        FileWriter fw=new FileWriter("C:\\Users\\Mohamed Ashraf\\Desktop\\LSFR\\ciphered.txt");
+        FileWriter fw=new FileWriter("F:\\college\\third year\\second term\\Computer Network Security\\assignments\\LSFR_Encrypter\\LSFR\\ciphered.txt");
         for (int i = 0; i < ciphered.length(); i++) 
             fw.write(ciphered.charAt(i));
         fw.close();
         
         return ciphered;
     }
-    public String decipher(int plainSize) throws IOException{
-        String path = "C:\\Users\\Mohamed Ashraf\\Desktop\\LSFR\\data.txt";
-        String path2 = "C:\\Users\\Mohamed Ashraf\\Desktop\\LSFR\\ciphered.txt";
+    public String decipher() throws IOException{
+        String path = "F:\\college\\third year\\second term\\Computer Network Security\\assignments\\LSFR_Encrypter\\LSFR\\data.txt";
+        String path2 = "F:\\college\\third year\\second term\\Computer Network Security\\assignments\\LSFR_Encrypter\\LSFR\\ciphered.txt";
         
         ArrayList<String> data = readfile(path);
         ArrayList<String> cipheredData = readfile(path2);
@@ -147,7 +147,7 @@ public class LSFR {
         String ciphered = cipheredData.get(0);
         ArrayList<String> charsBinary = new ArrayList<String>();
         ArrayList<Character> chars = new ArrayList<Character>();
-        String key = generateKey(data.get(0), data.get(1), Integer.parseInt(data.get(2)), plainSize*8);
+        String key = generateKey(data.get(0), data.get(1), Integer.parseInt(data.get(2)), cipheredData.get(0).length());
         
         String originalBinary = XORing(ciphered, key);
         
@@ -168,9 +168,9 @@ public class LSFR {
     }
     public static void main(String[] args) throws IOException {
         LSFR lsfr = new LSFR();
-        String plainText = "Mohamed Ashraf";
+        String plainText = "az";
         String ciphered = lsfr.cypher(plainText);
-        String original = lsfr.decipher(plainText.length());
+        String original = lsfr.decipher();
         
         System.out.println("ciphered bits : " + ciphered);
         System.out.println("origianl : " + original);
