@@ -88,18 +88,18 @@ public class LSFR {
         
         for(int j = 0 ; j < warmUp + plainSize; j++){
             output.add(regesters[0]);
-            String tmp = regesters[size-1];//store the value of S8
+            String tmp = regesters[size-1];//store the value of S9
 
             for(int i = 0 ; i < regesters.length-2 ; i++){//move step
                 regesters[i] = regesters[i+1];
             }
-            regesters[size-2] = tmp;//S7 = old S8
+            regesters[size-2] = tmp;//S8 = old S9
             
             String[] XOR = new String[indexes.size()];
             for(int i = 0 ; i < indexes.size() ; i++){
                 XOR[i] = regesters[indexes.get(i)];//get the current value of the regester and store it
             }
-            regesters[size-1] = self_XORing(XOR);//S8 = s0 xor s2 xor s5 xor s7
+            regesters[size-1] = self_XORing(XOR);
             
         }
         System.out.print("discarding bits : ");
@@ -120,12 +120,11 @@ public class LSFR {
         System.out.println("key : "+key);
         for(int i = 0 ; i<plainText.length() ; i++){
             int num = (int)plainText.charAt(i);//get ascii
-            String binary = Integer.toBinaryString(num); //get binary
+            String binary = Integer.toBinaryString(num); //get binary  0 1110101
             while(binary.length() < 8){//add the missing bits
                 binary = "0" + binary;
             }
             tmp.add(binary);
-            
         }
         String plainBinary = arrayToString(tmp);
         String ciphered = XORing(plainBinary, key);
@@ -153,7 +152,6 @@ public class LSFR {
         
         for(int i = 0 ; i < originalBinary.length() ; i+=8){
             charsBinary.add(originalBinary.substring(i,i+8));
-            
         }
         for(int i = 0 ; i < charsBinary.size() ;i++){
             int tmp = Integer.parseInt(charsBinary.get(i),2);//get ascii
@@ -168,7 +166,7 @@ public class LSFR {
     }
     public static void main(String[] args) throws IOException {
         LSFR lsfr = new LSFR();
-        String plainText = "az";
+        String plainText = "mohamed ashraf";
         String ciphered = lsfr.cypher(plainText);
         String original = lsfr.decipher();
         
